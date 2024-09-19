@@ -1,9 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:16'
+            args '-u root' // Use root to avoid permission issues
+        }
+    }
     stages {
-        stage('Build') { 
+        stage('Build') {
             steps {
-                sh 'npm install --save' 
+                // Install dependencies using npm
+                sh 'npm install'
             }
         }
     }
