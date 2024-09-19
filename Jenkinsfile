@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/your-repo/aws-elastic-beanstalk-express-js-sample.git'
+                git url: 'https://github.com/chungduong1/aws-elastic-beanstalk-express-js-sample.git'
             }
         }
         stage('Build') {
