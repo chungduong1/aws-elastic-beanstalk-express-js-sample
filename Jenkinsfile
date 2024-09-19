@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/chungduong1/aws-elastic-beanstalk-express-js-sample.git'
+                git branch: 'main', url: 'https://github.com/chungduong1/aws-elastic-beanstalk-express-js-sample.git'
             }
         }
         stage('Build') {
@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Deploy to AWS Elastic Beanstalk') {
             steps {
-                // You can add a script or use a Jenkins plugin to deploy to AWS Elastic Beanstalk here.
+                // Add your deployment steps here
                 echo 'Deploying to AWS Elastic Beanstalk...'
             }
         }
