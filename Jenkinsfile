@@ -8,6 +8,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                git url:'https://github.com/chungduong1/aws-elastic-beanstalk-express-js-sample',branch:'main'
                 echo 'Building..'
             }
         }
