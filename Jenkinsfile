@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'docker:19.03' // Or use a version compatible with your setup
-            args '--privileged -v /var/run/docker.sock:/var/run/docker.sock'
+            image 'node:16' // Or use a version compatible with your setup
+
         }
     }
     stages {
