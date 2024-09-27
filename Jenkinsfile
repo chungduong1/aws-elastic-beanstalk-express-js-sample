@@ -5,7 +5,7 @@ pipeline {
         }
     }
     environment {
-        SNYK_TOKEN = credentials('snyk-api-token') // Assuming you have stored the Snyk API token in Jenkins credentials
+        SNYK_TOKEN = credentials('organisation-snyk-api-token') // Assuming you have stored the Snyk API token in Jenkins credentials
     }
     stages {
         stage('Install Dependencies') {
