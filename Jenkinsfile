@@ -4,9 +4,6 @@ pipeline {
             image 'node:16'
         }
     }
-    environment {
-        SNYK_TOKEN = credentials('snyk-api-token') // Assuming you have stored the Snyk API token in Jenkins credentials
-    }
     stages {
         stage('Install Dependencies') {
             steps {
@@ -16,22 +13,6 @@ pipeline {
                 }
             }
         }
-        
-        stage('Security Scan') {
-            steps {
-                script {
-                    // Install Snyk CLI
-                    sh 'npm install -g snyk'
-                    
-                    // Run Snyk security scan and fail build if there are critical vulnerabilities
-                    sh '''
-                    snyk auth $SNYK_TOKEN
-                    snyk test --severity-threshold=high || exit 1
-                    '''
-                }
-            }
-        }
-
         stage('Build') {
             steps {
                 script {
@@ -41,14 +22,15 @@ pipeline {
             }
         }
         
-        stage('Test') {
-            steps {
-                script {
-                    echo 'Running tests...'
-                    // Add your test commands here, e.g., npm test
-                }
-            }
-        }
+     stage('Test') {
+      steps {
+        echo 'Testing...'
+        snykSecurity(
+          snykInstallation: 'snyk@latest',
+          snykTokenId: '184b9f45-7325-4901-8769-66f4b51df73f',
+          // place other parameters here
+        )
+      }
 
         stage('Deploy') {
             steps {
