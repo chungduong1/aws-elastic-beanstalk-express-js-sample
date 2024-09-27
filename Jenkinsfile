@@ -26,7 +26,7 @@ pipeline {
                     try {
                         snykSecurity(
                             snykInstallation: 'Snyk@latest', // Ensure the correct installation name
-                            snykTokenId: credentials('organisation-snyk-api-token'), // Use the correct credential ID
+                            snykTokenId:  'snyk-api-token', // Use the correct credential ID
                             additionalArguments: '--all-projects --detection-depth=4' // Optional arguments
                         )
                     } catch (Exception e) {
