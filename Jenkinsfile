@@ -25,7 +25,7 @@ pipeline {
                     echo 'Testing...'
                     snykSecurity(
                         snykInstallation: 'Snyk@latest', // Ensure the correct installation name
-                        snykTokenId: 'organisation-snyk-api-token', // Use the correct credential ID
+                        snykTokenId: 'snyk-api-token', // Use the correct credential ID
                         additionalArguments: '--all-projects --detection-depth=4' // Optional arguments
                     )
                 }
