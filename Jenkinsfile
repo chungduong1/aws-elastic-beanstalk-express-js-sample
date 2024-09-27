@@ -5,7 +5,7 @@ pipeline {
         }
     }
     environment {
-        SNYK_TOKEN = credentials('organisation-snyk-api-token') // Use the correct credential ID
+        SNYK_TOKEN = credentials('organisation-snyk-api-token') // Reference the secret text credential
     }
     stages {
         stage('Install Dependencies') {
@@ -16,7 +16,6 @@ pipeline {
                 }
             }
         }
-
         stage('Build') {
             steps {
                 script {
@@ -25,18 +24,16 @@ pipeline {
                 }
             }
         }
-
         stage('Test') {
             steps {
                 echo 'Testing...'
                 snykSecurity(
-                  snykInstallation: 'Snyk@latest', // Use your Snyk CLI installation name in Jenkins
-                  snykTokenId: 'organisation-snyk-api-token', // Use the ID of your Snyk API token in Jenkins credentials
-                  additionalArguments: '--all-projects --detection-depth=4' // Example: scan all projects with a detection depth of 4
+                    snykInstallation: 'Snyk@latest', // Ensure the installation name matches what you have in Jenkins
+                    snykTokenId: 'organisation-snyk-api-token', // Use the credential ID here
+                    additionalArguments: '--all-projects --detection-depth=4' // Optional arguments for Snyk scan
                 )
             }
         }
-
         stage('Deploy') {
             steps {
                 script {
