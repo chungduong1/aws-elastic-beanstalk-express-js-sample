@@ -8,7 +8,6 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Install project dependencies
                     sh 'npm install --save'
                 }
             }
@@ -24,16 +23,11 @@ pipeline {
             steps {
                 script {
                     echo 'Testing...'
-                    try {
-                        snykSecurity(
-                            snykInstallation: 'Snyk@latest', // Ensure the installation name matches
-                            snykTokenId: credentials('organisation-snyk-api-token'), // Use the credential ID
-                            additionalArguments: '--all-projects --detection-depth=4' // Optional arguments
-                        )
-                    } catch (Exception e) {
-                        echo "Snyk Security scan failed: ${e.message}"
-                        currentBuild.result = 'FAILURE' // Mark the build as failed
-                    }
+                    snykSecurity(
+                        snykInstallation: 'Snyk@latest', // Ensure the correct installation name
+                        snykTokenId: 'organisation-snyk-api-token', // Use the correct credential ID
+                        additionalArguments: '--all-projects --detection-depth=4' // Optional arguments
+                    )
                 }
             }
         }
