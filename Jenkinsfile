@@ -40,9 +40,13 @@ pipeline {
         }
     }
 
-    post {
+     post {
         success {
             echo 'Pipeline succeeded!'
+        }
+        unstable {
+            echo 'Pipeline succeeded with vulnerabilities found!'
+            // Here, you could add notification logic to alert the team about vulnerabilities
         }
         failure {
             echo 'Pipeline failed!'
