@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'node:16' // Or use a version compatible with your setup
+            image 'node:16'
 
         }
     }
@@ -9,11 +9,11 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    sh 'docker --version' // Check if Docker is available
                     sh 'npm install --save'
                 }
             }
         }
+        
         stage('Build') {
             steps {
                 script {
