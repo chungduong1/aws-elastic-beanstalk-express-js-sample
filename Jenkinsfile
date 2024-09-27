@@ -4,9 +4,6 @@ pipeline {
             image 'node:16'
         }
     }
-    environment {
-        SNYK_TOKEN = credentials('organisation-snyk-api-token') // Reference the secret text credential
-    }
     stages {
         stage('Install Dependencies') {
             steps {
@@ -20,25 +17,25 @@ pipeline {
             steps {
                 script {
                     echo 'Building the project...'
-                    // Here you would add any build steps for your project
                 }
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing...'
-                snykSecurity(
-                    snykInstallation: 'Snyk@latest', // Ensure the installation name matches what you have in Jenkins
-                    snykTokenId: 'organisation-snyk-api-token', // Use the credential ID here
-                    additionalArguments: '--all-projects --detection-depth=4' // Optional arguments for Snyk scan
-                )
+                script {
+                    echo 'Testing...'
+                    snykSecurity(
+                        snykInstallation: 'Snyk@latest', // Ensure this matches your Snyk installation name
+                        snykTokenId: 'organisation-snyk-api-token', // Use the ID directly
+                        additionalArguments: '--all-projects --detection-depth=4' // Optional arguments
+                    )
+                }
             }
         }
         stage('Deploy') {
             steps {
                 script {
                     echo 'Deploying the project...'
-                    // Add your deployment commands here, e.g., eb deploy
                 }
             }
         }
