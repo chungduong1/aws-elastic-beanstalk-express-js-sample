@@ -30,7 +30,7 @@ pipeline {
             steps {
                 echo 'Testing...'
                 snykSecurity(
-                  snykInstallation: 'Snyk@latest', // Replace with your Snyk CLI installation name in Jenkins
+                  snykInstallation: 'Snyk@latest', // Use your Snyk CLI installation name in Jenkins
                   snykTokenId: 'organisation-snyk-api-token', // Use the ID of your Snyk API token in Jenkins credentials
                   additionalArguments: '--all-projects --detection-depth=4' // Example: scan all projects with a detection depth of 4
                 )
