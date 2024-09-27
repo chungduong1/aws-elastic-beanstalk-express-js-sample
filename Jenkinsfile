@@ -5,7 +5,7 @@ pipeline {
         }
     }
     environment {
-        SNYK_TOKEN = credentials('organisation-snyk-api-toke')
+        SNYK_TOKEN = credentials('organisation-snyk-api-token')
     
     }
     stages {
@@ -31,7 +31,7 @@ pipeline {
                     try {
                         snykSecurity(
                             snykInstallation: 'Snyk@latest', // Ensure the installation name matches
-                            snykTokenId: 'SNYK_TOKEN', // Use the credential ID
+                            snykTokenId: SNYK_TOKEN, // Use the credential ID
                             additionalArguments: '--all-projects --detection-depth=4' // Optional arguments
                         )
                     } catch (Exception e) {
