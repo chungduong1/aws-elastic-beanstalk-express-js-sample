@@ -2,59 +2,26 @@ pipeline {
     agent {
         docker {
             image 'node:16'
+
         }
     }
     stages {
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    sh 'npm install --save'
-                }
-            }
-        }
         stage('Build') {
             steps {
-                script {
-                    echo 'Building the project...'
-                }
+                sh 'npm install --save'
             }
         }
         stage('Test') {
             steps {
-                script {
-                    echo 'Testing...'
-                    try {
-                        snykSecurity(
-                            snykInstallation: 'Snyk@latest', // Ensure the correct installation name
-                            snykTokenId:  'snyk-api-token', // Use the correct credential ID
-                            additionalArguments: '--all-projects --detection-depth=4 --severity-threshold=high' // Optional arguments
-                        )
-                    } catch (Exception e) {
-                        echo "Snyk Security scan failed: ${e.message}"
-                        // Log the vulnerability details if needed, or handle as desired
-                    }
-                }
+                sh './jenkins/scripts/test.sh'
             }
         }
-        stage('Deploy') {
+        stage('Deliver') { 
             steps {
-                script {
-                    echo 'Deploying the project...'
-                }
+                sh './jenkins/scripts/deliver.sh' 
+                input message: 'Finished using the web site? (Click "Proceed" to continue)' 
+                sh './jenkins/scripts/kill.sh' 
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        unstable {
-            echo 'Pipeline succeeded with vulnerabilities found!'
-            // Here, you could add notification logic to alert the team about vulnerabilities
-        }
-        failure {
-            echo 'Pipeline failed!'
         }
     }
 }
