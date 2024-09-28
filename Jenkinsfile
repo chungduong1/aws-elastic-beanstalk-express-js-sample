@@ -39,7 +39,7 @@ pipeline {
                     snykSecurity(
                         snykInstallation: 'Snyk@latest',
                         snykTokenId: 'snyk-api-token',
-                        additionalArguments: '--all-projects --detection-depth=4'
+                        additionalArguments: '--all-projects --detection-depth=4 --severity-threshold=critical'
                     )
                 }
                 // Archive the Snyk report
