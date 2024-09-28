@@ -60,25 +60,19 @@ pipeline {
                 archiveArtifacts artifacts: 'test.log', allowEmptyArchive: true
             }
         }
-    stage('Deliver') {
-    steps {
-        script {
-            echo 'Delivering the project...'
-            // Start the application in the background
-            sh 'nohup node app.js > app.log 2>&1 &'
-            sleep 5 // Wait for a short period to allow the app to start
-            
-            // Check if the application is running
-            def response = sh(script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:8080', returnStdout: true).trim()
-            echo "HTTP response code: ${response}"
-
-            // Log delivery processed
-            echo "Delivery processed..." > deliver.log
+        stage('Deliver') {
+            steps {
+                script {
+                    echo 'Delivering the project...'
+                    // Start the application in the background
+                    sh 'nohup node app.js > deliver.log 2>&1 &'
+                    sleep 5 // Wait for a short period to allow the app to start
+                    
+                }
+                // Archive the delivery log
+                archiveArtifacts artifacts: 'deliver.log', allowEmptyArchive: true
+            }
         }
-        // Archive the delivery log
-        archiveArtifacts artifacts: 'deliver.log', allowEmptyArchive: true
-    }
-}
     }
     post {
         always {
