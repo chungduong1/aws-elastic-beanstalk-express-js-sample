@@ -5,8 +5,8 @@ pipeline {
             args '--dns 8.8.8.8' // Adding DNS configuration for Docker
         }
     }
-    enviroment {
-        //define version or enviroment variables, credentials in here
+    environment {
+        // Define version or environment variables, credentials here
         TITLE = '21593837 Project 2 Jenkins Pipeline'
     }
     stages {
@@ -21,22 +21,21 @@ pipeline {
             steps {
                 script {
                     echo "Building the ...${TITLE}"
-                    
                 }
             }
         }
-        stage('Scan'){
+        stage('Scan') {
             steps {
                 script {
-                        echo 'Scanning...'
-                        snykSecurity(
-                                snykInstallation: 'Snyk@latest', // Ensure the correct installation name
-                                snykTokenId:  'snyk-api-token', // Use the correct credential ID
-                                additionalArguments: '--all-projects --detection-depth=4' // set high or critical to halts
-                            )
-                    }
+                    echo 'Scanning...'
+                    snykSecurity(
+                        snykInstallation: 'Snyk@latest', // Ensure the correct installation name
+                        snykTokenId: 'snyk-api-token', // Use the correct credential ID
+                        additionalArguments: '--all-projects --detection-depth=4' // set high or critical to halt
+                    )
+                }
                 // Archive the generated Snyk report
-                archiveArtifacts artifacts: '**/snyk_report.json', allowEmptyArchive: true    
+                archiveArtifacts artifacts: '**/snyk_report.json', allowEmptyArchive: true
             }
         }
         stage('Test') {
@@ -46,7 +45,6 @@ pipeline {
                 }
             }
         }
-
         stage('Deliver') { 
             steps {
                 script {
@@ -56,7 +54,7 @@ pipeline {
         }
     }
     post {
-        //block execute AFTER all stages executed
+        // Block executes AFTER all stages are executed
         always {
             echo 'Pipeline finished!'
         }
