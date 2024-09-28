@@ -25,7 +25,6 @@ pipeline {
             steps {
                 script {
                     echo "Building the project: ${TITLE}"
-                    echo "Building the project: ${TITLE}" > build.log
                 }
                 // Archive the build log
                 archiveArtifacts artifacts: 'build.log', allowEmptyArchive: true
