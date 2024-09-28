@@ -6,9 +6,18 @@ pipeline {
         }
     }
     stages {
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    sh 'npm install --save'
+                }
+            }
+        }
         stage('Build') {
             steps {
-                sh 'npm install --save'
+                script {
+                    echo 'Building the project...'
+                }
             }
         }
         stage('Test') {
