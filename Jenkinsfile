@@ -15,18 +15,18 @@ pipeline {
                 script {
                     sh 'npm install --save'
                 }
+                // Archive the generated Install Dependencies report
+                archiveArtifacts artifacts: '**/npminstal_report.json', allowEmptyArchive: true
             }
-            // Archive the generated Install Dependencies report
-            archiveArtifacts artifacts: '**/npminstal_report.json', allowEmptyArchive: true
         }
         stage('Build') {
             steps {
                 script {
                     echo "Building the ...${TITLE}"
                 }
+                // Archive the generated Build report
+                archiveArtifacts artifacts: '**/build_report.json', allowEmptyArchive: true
             }
-            // Archive the generated Build report
-            archiveArtifacts artifacts: '**/build_report.json', allowEmptyArchive: true
         }
         stage('Scan') {
             steps {
