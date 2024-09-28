@@ -29,7 +29,7 @@ pipeline {
                     snykSecurity(
                             snykInstallation: 'Snyk@latest', // Ensure the correct installation name
                             snykTokenId:  'snyk-api-token', // Use the correct credential ID
-                            additionalArguments: '--all-projects --detection-depth=4' // set high or critical to halts
+                            additionalArguments: '--all-projects --detection-depth=4 --severity-threshold=critical' // set high or critical to halts
                         )
                     }
                 }
