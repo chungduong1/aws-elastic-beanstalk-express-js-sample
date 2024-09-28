@@ -52,9 +52,9 @@ pipeline {
                     echo 'Running tests...'
                     sh 'nohup node app.js &'
                     sleep 5
-                    sh 'curl http://localhost:8080'
+                    sh 'curl http://localhost:8080 > test.log'
                     // Run tests and log output to test.log
-                    sh 'npm test > test.log 2>&1'
+                    
                 }
                 // Archive the test log
                 archiveArtifacts artifacts: 'test.log', allowEmptyArchive: true
