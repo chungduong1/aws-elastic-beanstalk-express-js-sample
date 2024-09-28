@@ -26,18 +26,14 @@ pipeline {
             steps {
                 script {
                     echo 'Testing...'
-                    try {
-                        snykSecurity(
+                    snykSecurity(
                             snykInstallation: 'Snyk@latest', // Ensure the correct installation name
                             snykTokenId:  'snyk-api-token', // Use the correct credential ID
                             additionalArguments: '--all-projects --detection-depth=4' // set high or critical to halts
                         )
-                    } catch (Exception e) {
-                        echo "Snyk Security scan failed: ${e.message}"
-                        // Log here
                     }
                 }
-            }
+            
         }
 
         stage('Deliver') { 
