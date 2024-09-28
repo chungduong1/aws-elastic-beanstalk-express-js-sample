@@ -5,6 +5,10 @@ pipeline {
             args '--dns 8.8.8.8' // Adding DNS configuration for Docker
         }
     }
+    enviroment {
+        //define version or enviroment variables, credentials in here
+        TITLE = '21593837 Project 2 Jenkins Pipeline'
+    }
     stages {
         stage('Install Dependencies') {
             steps {
@@ -16,7 +20,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    echo 'Building the project...'
+                    echo "Building the ...${TITLE}"
+                    
                 }
             }
         }
@@ -30,6 +35,8 @@ pipeline {
                                 additionalArguments: '--all-projects --detection-depth=4' // set high or critical to halts
                             )
                     }
+                // Archive the generated Snyk report
+                archiveArtifacts artifacts: '**/snyk_report.json', allowEmptyArchive: true    
             }
         }
         stage('Test') {
@@ -46,6 +53,18 @@ pipeline {
                     echo 'Deliver the project...'
                 }
             }
+        }
+    }
+    post {
+        //block execute AFTER all stages executed
+        always {
+            echo 'Pipeline finished!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+        success {
+            echo 'Pipeline succeeded!'
         }
     }
 }
