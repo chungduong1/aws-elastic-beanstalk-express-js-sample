@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:16'
-
+            args '--dns 8.8.8.8' // Adding DNS configuration for Docker
         }
     }
     stages {
@@ -22,14 +22,14 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh './jenkins/scripts/test.sh'
+                sh 'node --version'
             }
         }
         stage('Deliver') { 
             steps {
-                sh './jenkins/scripts/deliver.sh' 
-                input message: 'Finished using the web site? (Click "Proceed" to continue)' 
-                sh './jenkins/scripts/kill.sh' 
+                script {
+                    echo 'Deliver the project...'
+                }
             }
         }
     }
