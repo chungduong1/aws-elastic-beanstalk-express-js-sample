@@ -50,9 +50,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
-                    sh 'nohup node app.js &'
-                    sleep 5
-                    sh 'curl http://localhost:8080' 
+                    sh 'npm test > test.log 2>&1'
                     
                     // Run tests and log output to test.log
                     
@@ -65,7 +63,10 @@ pipeline {
             steps {
                 script {
                     echo 'Delivering the project...'
-                    echo "Starting delivery process..." > deliver.log
+                    sh 'nohup node app.js &'
+                    sleep 5
+                    sh 'curl http://localhost:8080' 
+                    echo "Delivery processed..." > deliver.log
 
                 }
                 // Archive the delivery log
