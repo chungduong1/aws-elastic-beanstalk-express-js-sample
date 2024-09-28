@@ -22,16 +22,22 @@ pipeline {
                 }
             }
         }
+        stage('Scan'){
+            steps {
+                script {
+                        echo 'Scanning...'
+                        snykSecurity(
+                                snykInstallation: 'Snyk@latest', // Ensure the correct installation name
+                                snykTokenId:  'snyk-api-token', // Use the correct credential ID
+                                additionalArguments: '--all-projects --detection-depth=4' // set high or critical to halts
+                            )
+                    }
+            }
+        }
         stage('Test') {
             steps {
                 script {
-                    echo 'Testing...'
-                    snykSecurity(
-                            snykInstallation: 'Snyk@latest', // Ensure the correct installation name
-                            snykTokenId:  'snyk-api-token', // Use the correct credential ID
-                            additionalArguments: '--all-projects --detection-depth=4 --severity-threshold=critical' // set high or critical to halts
-                        )
-                    }
+                    echo 'Testing the project...'
                 }
             
         }
