@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
+    "build": "echo 'Build steps examples'"//build steps
   },
   "repository": {
     "type": "git",
