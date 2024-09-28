@@ -9,7 +9,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    # Remove old node_modules and package-lock.json
+                    // Remove old node_modules and package-lock.json
                     sh 'rm -rf node_modules package-lock.json'
                     sh 'npm install --save'
                 }
