@@ -39,7 +39,7 @@ pipeline {
                 script {
                     echo 'Testing the project...'
                 }
-            
+            }
         }
 
         stage('Deliver') { 
