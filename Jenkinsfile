@@ -50,7 +50,9 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
-                    
+                    sh 'nohup node app.js &'
+                    sleep 5
+                    sh 'curl http://localhost:8080'
                     // Run tests and log output to test.log
                     sh 'npm test > test.log 2>&1'
                 }
