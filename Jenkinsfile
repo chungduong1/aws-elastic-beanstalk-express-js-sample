@@ -25,15 +25,7 @@ pipeline {
             steps {
                 script {
                     echo "Building the project: ${TITLE}"
-
-                    // Log build steps with `-x` flag
-                    sh '''
-                        set -x
-                        # Example build commands
-                        echo "Starting build process..." > build.log
-                        npm run build >> build.log 2>&1
-                        set +x
-                    '''
+                    echo "Building the project: ${TITLE}" > build.log
                 }
                 // Archive the build log
                 archiveArtifacts artifacts: 'build.log', allowEmptyArchive: true
@@ -71,13 +63,8 @@ pipeline {
             steps {
                 script {
                     echo 'Delivering the project...'
-                    
-                    // Log delivery steps
-                    sh '''
-                        echo "Starting delivery process..." > deliver.log
-                        # Example delivery commands
-                        echo "Delivering project files..." >> deliver.log
-                    '''
+                    echo "Starting delivery process..." > deliver.log
+
                 }
                 // Archive the delivery log
                 archiveArtifacts artifacts: 'deliver.log', allowEmptyArchive: true
