@@ -16,9 +16,6 @@ pipeline {
 
                     // Enable verbose logging and write output to log file
                     sh 'npm install --save --verbose > install.log 2>&1'
-                    
-                    // Display the contents of the log file in the Jenkins console output
-                    sh 'cat install.log'
                 }
                 // Archive the install log
                 archiveArtifacts artifacts: 'install.log', allowEmptyArchive: true
@@ -37,9 +34,6 @@ pipeline {
                         npm run build >> build.log 2>&1
                         set +x
                     '''
-                    
-                    // Display build log
-                    sh 'cat build.log'
                 }
                 // Archive the build log
                 archiveArtifacts artifacts: 'build.log', allowEmptyArchive: true
@@ -56,9 +50,6 @@ pipeline {
                         snykTokenId: 'snyk-api-token',
                         additionalArguments: '--all-projects --detection-depth=4'
                     )
-
-                    // Assuming Snyk output is saved to snyk_report.json
-                    sh 'cat snyk_report.json'
                 }
                 // Archive the Snyk report
                 archiveArtifacts artifacts: 'snyk_report.json', allowEmptyArchive: true
@@ -71,9 +62,6 @@ pipeline {
                     
                     // Run tests and log output to test.log
                     sh 'npm test > test.log 2>&1'
-                    
-                    // Display test log
-                    sh 'cat test.log'
                 }
                 // Archive the test log
                 archiveArtifacts artifacts: 'test.log', allowEmptyArchive: true
@@ -90,9 +78,6 @@ pipeline {
                         # Example delivery commands
                         echo "Delivering project files..." >> deliver.log
                     '''
-                    
-                    // Display delivery log
-                    sh 'cat deliver.log'
                 }
                 // Archive the delivery log
                 archiveArtifacts artifacts: 'deliver.log', allowEmptyArchive: true
