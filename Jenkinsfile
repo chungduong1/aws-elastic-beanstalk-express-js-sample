@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     echo "Building the project: ${TITLE}"
-                    sh 'npm run build' //run the build script defined in package.json
+                    sh 'npm build' //run the build script defined in package.json
                 }
                 // Archive the build log
                 archiveArtifacts artifacts: 'build.log', allowEmptyArchive: true
