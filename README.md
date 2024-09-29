@@ -3,10 +3,10 @@
 This repository contains a sample Node.js web application built using [Express](https://expressjs.com/), meant to be used as part of the AWS DevOps Learning Path.
 
 ## Modified Files
-Jenkinsfile - file for Jenkins run.
-build.js - Script for stage build
-test.js - Script for stage test
-package.json - addedd two scripts build, test
+### Jenkinsfile - file for Jenkins run.
+### build.js - Script for stage build
+### test.js - Script for stage test
+### package.json - addedd two scripts build, test
 
 ## Security
 
